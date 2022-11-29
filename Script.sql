@@ -1,325 +1,426 @@
---- creamos el esquema ---
+--- creating a schema ---
 create schema carolina_graciolli_siqueira authorization rgcngfnw;
 
---- tabla MODELOS ---
-create table carolina_graciolli_siqueira.modelo(
-				id_modelo integer not null, --- PK
-				modelo varchar(30) not null,
-				marca varchar(20) not null,
-				empresa varchar(20) not null
+--- table MODEL ---
+create table carolina_graciolli_siqueira.model(
+				id_model integer not null, -- PK
+				id_brand integer not null, -- FK
+				name varchar(30) not null,
 				);
 
-alter table carolina_graciolli_siqueira.modelo
-	add constraint pk_modelo primary key (id_modelo);
+alter table carolina_graciolli_siqueira.model
+	add constraint pk_model primary key (id_model);
 
--- tabla POLIZA ---
-create table carolina_graciolli_siqueira.poliza(
-				id_poliza integer not null, --PK
-				aseguradora varchar(20) not null
+--- table BRAND ---
+create table carolina_graciolli_siqueira.brand(
+				id_brand integer not null, -- PK
+				id_company integer not null, -- FK
+				name varchar(30) not null,
 				);
 
-alter table carolina_graciolli_siqueira.poliza
-	add constraint pk_poliza primary key (id_poliza);
+alter table carolina_graciolli_siqueira.brand
+	add constraint pk_brand primary key (id_brand);
 
---- tabla MONEDA ---
-create table carolina_graciolli_siqueira.moneda(
-				id_moneda integer not null, --PK
-				nombre varchar(30) not null,
+--- table COMPANY ---
+create table carolina_graciolli_siqueira.company(
+				id_company integer not null, -- PK
+				name varchar(30) not null,
+				);
+
+alter table carolina_graciolli_siqueira.company
+	add constraint pk_company primary key (id_company);
+
+-- table INSURANCE ---
+create table carolina_graciolli_siqueira.insurance(
+				id_insurance integer not null, -- PK
+				id_insurance_company integer not null, --FK
+				);
+
+alter table carolina_graciolli_siqueira.insurance
+	add constraint pk_insurance primary key (id_insurance);
+
+--- table INSURANCE_COMPANY ---
+create table carolina_graciolli_siqueira.insurance_company(
+				id_insurance_company integer not null, -- PK
+				name varchar(50) not null,
+				);
+
+alter table carolina_graciolli_siqueira.insurance_company
+	add constraint pk_insurance_company primary key (id_insurance_company);
+
+--- table CURRENCY ---
+create table carolina_graciolli_siqueira.currency(
+				id_currency integer not null, -- PK
+				name varchar(30) not null,
 				region varchar(30) null
 				);
 
-alter table carolina_graciolli_siqueira.moneda
-	add constraint pk_moneda primary key (id_moneda);
+alter table carolina_graciolli_siqueira.currency
+	add constraint pk_currency primary key (id_currency);
 
-
---- tabla REVISION ---
-create table carolina_graciolli_siqueira.revision(
+--- table INSPECTION ---
+create table carolina_graciolli_siqueira.inspection(
 				km integer not null, --PK
-				id_coche integer not null, --PK, FK --> coche
-				fecha_compra date not null,
-				importe integer not null,
-				id_moneda integer not null default '001' --FK --> moneda
+				id_car integer not null, --PK, FK --> car
+				id_currency integer not null default '001' --FK --> currency
+				date date not null,
+				price integer not null,
 				);
 
-alter table carolina_graciolli_siqueira.revision
-	add constraint pk_revision primary key (km, id_coche);
+alter table carolina_graciolli_siqueira.inspection
+	add constraint pk_inspection primary key (km, id_car);
 
+--- table COLOR ---
+create table carolina_graciolli_siqueira.color(
+				id_color integer not null, -- PK
+				name varchar(20) not null,
+				);
 
---- tabla COCHE ---
-create table carolina_graciolli_siqueira.coche(
-				id_coche integer not null, --- PK
-				id_modelo integer not null, --- FK  --> modelo
-				id_poliza integer not null, --- FK --> poliza
-				matricula varchar(10) not null,
-				fecha_compra date not null,
-				color varchar(20) not null,
-				kilometrage integer not null
+alter table carolina_graciolli_siqueira.color
+	add constraint pk_color primary key (id_color);
+
+--- tabla CAR ---
+create table carolina_graciolli_siqueira.car(
+				id_car integer not null, -- PK
+				id_model integer not null, -- FK  --> model
+				id_color integer not null, -- FK --> color
+				id_insurance integer not null, -- FK --> insurance
+				date_of_purchase date not null,
+				license_plate varchar(10) not null,
+				km_total integer not null,
 				);
 			
-alter table carolina_graciolli_siqueira.coche
-	add constraint pk_coche primary key (id_coche);
+alter table carolina_graciolli_siqueira.car
+	add constraint pk_car primary key (id_car);
 
 --- FK---
+alter table carolina_graciolli_siqueira.brand
+	add constraint brand_company foreign key (id_company)
+	references carolina_graciolli_siqueira.company (id_company);
 
-alter table carolina_graciolli_siqueira.coche
-	add constraint tipo_modelo foreign key (id_modelo)
-	references carolina_graciolli_siqueira.modelo (id_modelo);
+alter table carolina_graciolli_siqueira.model
+	add constraint model_brand foreign key (id_brand)
+	references carolina_graciolli_siqueira.brand (id_brand);
 
-alter table carolina_graciolli_siqueira.coche
-	add constraint numero_poliza foreign key (id_poliza)
-	references carolina_graciolli_siqueira.poliza (id_poliza);
+alter table carolina_graciolli_siqueira.insurance
+	add constraint which_company foreign key (id_insurance_company)
+	references carolina_graciolli_siqueira.insurance_company (id_insurance_company);
 
-alter table carolina_graciolli_siqueira.revision
-	add constraint revision_coche foreign key (id_coche)
-	references carolina_graciolli_siqueira.coche(id_coche);
+alter table carolina_graciolli_siqueira.car
+	add constraint type_model foreign key (id_model)
+	references carolina_graciolli_siqueira.model (id_model);
 
-alter table carolina_graciolli_siqueira.revision
-	add constraint tipo_moneda foreign key (id_moneda)
-	references carolina_graciolli_siqueira.moneda(id_moneda);
+alter table carolina_graciolli_siqueira.car
+	add constraint number_insurance foreign key (id_insurance)
+	references carolina_graciolli_siqueira.insurance (id_insurance);
+
+alter table carolina_graciolli_siqueira.car
+	add constraint car_color foreign key (id_color)
+	references carolina_graciolli_siqueira.color (id_color);
+
+alter table carolina_graciolli_siqueira.inspection
+	add constraint inspection_car foreign key (id_car)
+	references carolina_graciolli_siqueira.car(id_car);
+
+alter table carolina_graciolli_siqueira.inspection
+	add constraint type_currency foreign key (id_currency)
+	references carolina_graciolli_siqueira.currency(id_currency);
 
 -----------
 --- DML ---
 -----------
 
---- moneda ---
-insert into carolina_graciolli_siqueira.moneda
-	(id_moneda, nombre, region)
+--- currency ---
+insert into carolina_graciolli_siqueira.currency
+	(id_currency, name, region)
 	values('001', 'euro', 'EU');
 
-insert into carolina_graciolli_siqueira.moneda
-	(id_moneda, nombre, region)
+insert into carolina_graciolli_siqueira.currency
+	(id_currency, name, region)
 	values('002', 'dolar', 'USA');
 
-insert into carolina_graciolli_siqueira.moneda
-	(id_moneda, nombre, region)
-	values('003', 'libra', 'UK');
+insert into carolina_graciolli_siqueira.currency
+	(id_currency, name, region)
+	values('003', 'pound', 'UK');
 
---- modelo ---
-insert into carolina_graciolli_siqueira.modelo
-	(id_modelo, modelo, marca, empresa)
-	values('001', 'modelo1', 'marca1', 'empresa1');
+--- company ---
+insert into carolina_graciolli_siqueira.company
+	(id_company, name)
+	values('001', 'company1')
 
-insert into carolina_graciolli_siqueira.modelo
-	(id_modelo, modelo, marca, empresa)
-	values('002', 'modelo2', 'marca2', 'empresa1');
+insert into carolina_graciolli_siqueira.company
+	(id_company, name)
+	values('002', 'company2')
 
-insert into carolina_graciolli_siqueira.modelo
-	(id_modelo, modelo, marca, empresa)
-	values('003', 'modelo3', 'marca2', 'empresa1');
+--- brand ---
+insert into carolina_graciolli_siqueira.brand
+	(id_brand, id_company, name)
+	values('001', '001', 'brand1');
 
-insert into carolina_graciolli_siqueira.modelo
-	(id_modelo, modelo, marca, empresa)
-	values('004', 'modelo4', 'marca3', 'empresa2');
+insert into carolina_graciolli_siqueira.brand
+	(id_brand, id_company, name)
+	values('002', '001', 'brand2');
 
-insert into carolina_graciolli_siqueira.modelo
-	(id_modelo, modelo, marca, empresa)
-	values('005', 'modelo5', 'marca3', 'empresa2');
+insert into carolina_graciolli_siqueira.brand
+	(id_brand, id_company, name)
+	values('003', '002', 'brand3');
 
-insert into carolina_graciolli_siqueira.modelo
-	(id_modelo, modelo, marca, empresa)
-	values('006', 'modelo6', 'marca3', 'empresa2');
+--- model ---
+insert into carolina_graciolli_siqueira.model
+	(id_model, id_brand, name)
+	values('001', '001', 'model1');
 
---- poliza ---
-insert into carolina_graciolli_siqueira.poliza
-	(id_poliza, aseguradora)
-	values ('201', 'AS1');
+insert into carolina_graciolli_siqueira.model
+	(id_model, id_brand, name)
+	values('002', '002', 'model2');
 
-insert into carolina_graciolli_siqueira.poliza
-	(id_poliza, aseguradora)
-	values ('202', 'AS1');
+insert into carolina_graciolli_siqueira.model
+	(id_model, id_brand, name)
+	values('003', '002', 'model3');
 
-insert into carolina_graciolli_siqueira.poliza
-	(id_poliza, aseguradora)
-	values ('203', 'AS1');
+insert into carolina_graciolli_siqueira.model
+	(id_model, id_brand, name)
+	values('004', '003', 'model4');
 
-insert into carolina_graciolli_siqueira.poliza
-	(id_poliza, aseguradora)
-	values ('204', 'AS1');
+insert into carolina_graciolli_siqueira.model
+	(id_model, id_brand, name)
+	values('005', '003', 'model5');
 
-insert into carolina_graciolli_siqueira.poliza
-	(id_poliza, aseguradora)
-	values ('205', 'AS2');
+insert into carolina_graciolli_siqueira.model
+	(id_model, id_brand, name)
+	values('006', '003', 'model6');
 
-insert into carolina_graciolli_siqueira.poliza
-	(id_poliza, aseguradora)
-	values ('206', 'AS2');
+--- insurance_company ---
+insert into carolina_graciolli_siqueira.insurance_company
+	(id_insurance_company, name)
+	values('001', 'IC1');
 
-insert into carolina_graciolli_siqueira.poliza
-	(id_poliza, aseguradora)
-	values ('207', 'AS2');
+insert into carolina_graciolli_siqueira.insurance_company
+	(id_insurance_company, name)
+	values('002', 'IC2');
 
-insert into carolina_graciolli_siqueira.poliza
-	(id_poliza, aseguradora)
-	values ('208', 'AS2');
+insert into carolina_graciolli_siqueira.insurance_company
+	(id_insurance_company, name)
+	values('003', 'IC3');
+
+--- insurance ---
+insert into carolina_graciolli_siqueira.insurance
+	(id_insurance, id_insurance_company)
+	values ('201', '001');
+
+insert into carolina_graciolli_siqueira.insurance
+	(id_insurance, id_insurance_company)
+	values ('202', '001');
+
+insert into carolina_graciolli_siqueira.insurance
+	(id_insurance, id_insurance_company)
+	values ('203', '001');
+
+insert into carolina_graciolli_siqueira.insurance
+	(id_insurance, id_insurance_company)
+	values ('204', '001');
+
+insert into carolina_graciolli_siqueira.insurance
+	(id_insurance, id_insurance_company)
+	values ('205', '002');
+
+insert into carolina_graciolli_siqueira.insurance
+	(id_insurance, id_insurance_company)
+	values ('206', '002');
+
+insert into carolina_graciolli_siqueira.insurance
+	(id_insurance, id_insurance_company)
+	values ('207', '002');
+
+insert into carolina_graciolli_siqueira.insurance
+	(id_insurance, id_insurance_company)
+	values ('208', '002');
 	
-insert into carolina_graciolli_siqueira.poliza
-	(id_poliza, aseguradora)
-	values ('209', 'AS2');
+insert into carolina_graciolli_siqueira.insurance
+	(id_insurance, id_insurance_company)
+	values ('209', '002');
 	
-insert into carolina_graciolli_siqueira.poliza
-	(id_poliza, aseguradora)
-	values ('210', 'AS2');
+insert into carolina_graciolli_siqueira.insurance
+	(id_insurance, id_insurance_company)
+	values ('210', '002');
 	
-insert into carolina_graciolli_siqueira.poliza
-	(id_poliza, aseguradora)
-	values ('211', 'AS2');
+insert into carolina_graciolli_siqueira.insurance
+	(id_insurance, id_insurance_company)
+	values ('211', '002');
 	
-insert into carolina_graciolli_siqueira.poliza
-	(id_poliza, aseguradora)
-	values ('212', 'AS3');
+insert into carolina_graciolli_siqueira.insurance
+	(id_insurance, id_insurance_company)
+	values ('212', '003');
 	
-insert into carolina_graciolli_siqueira.poliza
-	(id_poliza, aseguradora)
-	values ('213', 'AS3');
+insert into carolina_graciolli_siqueira.insurance
+	(id_insurance, id_insurance_company)
+	values ('213', '003');
 	
-insert into carolina_graciolli_siqueira.poliza
-	(id_poliza, aseguradora)
-	values ('214', 'AS3');
+insert into carolina_graciolli_siqueira.insurance
+	(id_insurance, id_insurance_company)
+	values ('214', '003');
 	
-insert into carolina_graciolli_siqueira.poliza
-	(id_poliza, aseguradora)
-	values ('215', 'AS3');
+insert into carolina_graciolli_siqueira.insurance
+	(id_insurance, id_insurance_company)
+	values ('215', '003');
 
---- coche ---
-insert into carolina_graciolli_siqueira.coche
-	(id_coche, id_modelo, id_poliza, matricula, fecha_compra, color, kilometrage)
-	values('001', '001', '201', 'AAA0101', '2018-01-22', 'blanco', 12000);
+--- color ---
+insert into carolina_graciolli_siqueira.color
+	(id_color, name)
+	values('001', 'white')
 
-insert into carolina_graciolli_siqueira.coche
-	(id_coche, id_modelo, id_poliza, matricula, fecha_compra, color, kilometrage)
-	values('002', '001', '202', 'AAA0131', '2018-04-22', 'negro', 13000);
+insert into carolina_graciolli_siqueira.color
+	(id_color, name)
+	values('002', 'black')
 
-insert into carolina_graciolli_siqueira.coche
-	(id_coche, id_modelo, id_poliza, matricula, fecha_compra, color, kilometrage)
-	values('003', '001', '203', 'ABA0101', '2018-01-22', 'rojo', 9500);
+insert into carolina_graciolli_siqueira.color
+	(id_color, name)
+	values('003', 'gray')
 
-insert into carolina_graciolli_siqueira.coche
-	(id_coche, id_modelo, id_poliza, matricula, fecha_compra, color, kilometrage)
-	values('004', '001', '204', 'ACA0101', '2019-01-22', 'blanco', 8000);
+insert into carolina_graciolli_siqueira.color
+	(id_color, name)
+	values('004', 'red')
 
-insert into carolina_graciolli_siqueira.coche
-	(id_coche, id_modelo, id_poliza, matricula, fecha_compra, color, kilometrage)
-	values('005', '002', '205', 'AAG0401', '2018-06-22', 'blanco', 11500);
+--- car ---
+insert into carolina_graciolli_siqueira.car
+	(id_car, id_model, id_color, id_insurance, date_of_purchase, license_plate, km_total)
+	values('001', '001', '003' '201', '2018-01-22', 'AAA0101',  12000);
 
-insert into carolina_graciolli_siqueira.coche
-	(id_coche, id_modelo, id_poliza, matricula, fecha_compra, color, kilometrage)
-	values('006', '002', '206', 'BBA0101', '2018-11-22', 'amarillo', 5500);
+insert into carolina_graciolli_siqueira.car
+	(id_car, id_model, id_color, id_insurance, date_of_purchase, license_plate, km_total)
+	values('002', '001', '004' '202', '2018-04-22', 'AAA0131', 13000);
 
-insert into carolina_graciolli_siqueira.coche
-	(id_coche, id_modelo, id_poliza, matricula, fecha_compra, color, kilometrage)
-	values('007', '003', '207', 'ATU0101', '2019-01-22', 'blanco', 7800);
+insert into carolina_graciolli_siqueira.car
+	(id_car, id_model, id_color, id_insurance, date_of_purchase, license_plate, km_total)
+	values('003', '001', '002' '203', '2018-01-22', 'ABA0101', 500);
 
-insert into carolina_graciolli_siqueira.coche
-	(id_coche, id_modelo, id_poliza, matricula, fecha_compra, color, kilometrage)
-	values('008', '003', '208', 'AAD3101', '2020-11-22', 'negro', 12000);
+insert into carolina_graciolli_siqueira.car
+	(id_car, id_model, id_color, id_insurance, date_of_purchase, license_plate, km_total)
+	values('004', '001', '001' '204', '2019-01-22', 'ACA0101',  8000);
 
-insert into carolina_graciolli_siqueira.coche
-	(id_coche, id_modelo, id_poliza, matricula, fecha_compra, color, kilometrage)
-	values('009', '003', '209', 'BHT0101', '2020-01-22', 'blanco', 13000);
+insert into carolina_graciolli_siqueira.car
+	(id_car, id_model, id_color, id_insurance, date_of_purchase, license_plate, km_total)
+	values('005', '002', '001' '205', '2018-06-22', 'AAG0401',  11500);
 
-insert into carolina_graciolli_siqueira.coche
-	(id_coche, id_modelo, id_poliza, matricula, fecha_compra, color, kilometrage)
-	values('010', '004', '210', 'AAA7101', '2019-01-22', 'azul', 2000);
+insert into carolina_graciolli_siqueira.car
+	(id_car, id_model, id_color, id_insurance, date_of_purchase, license_plate, km_total)
+	values('006', '002', '002' '206', '2018-11-22', 'BBA0101', , 5500);
 
-insert into carolina_graciolli_siqueira.coche
-	(id_coche, id_modelo, id_poliza, matricula, fecha_compra, color, kilometrage)
-	values('011', '005', '211', 'ACA7101', '2019-04-22', 'blanco', 12000);
+insert into carolina_graciolli_siqueira.car
+	(id_car, id_model, id_color, id_insurance, date_of_purchase, license_plate, km_total)
+	values('007', '003', '001' '207', '2019-01-22', 'ATU0101',  7800);
 
-insert into carolina_graciolli_siqueira.coche
-	(id_coche, id_modelo, id_poliza, matricula, fecha_compra, color, kilometrage)
-	values('012', '005', '212', 'FCA7101', '2019-03-22', 'negro', 10000);
+insert into carolina_graciolli_siqueira.car
+	(id_car, id_model, id_color, id_insurance, date_of_purchase, license_plate, km_total)
+	values('008', '003', '002' '208', '2020-11-22', 'AAD3101', 12000);
 
-insert into carolina_graciolli_siqueira.coche
-	(id_coche, id_modelo, id_poliza, matricula, fecha_compra, color, kilometrage)
-	values('013', '005', '213', 'ADT7101', '2019-05-22', 'rojo', 72000);
+insert into carolina_graciolli_siqueira.car
+	(id_car, id_model, id_color, id_insurance, date_of_purchase, license_plate, km_total)
+	values('009', '003', '002' '209', '2020-01-22', 'BHT0101',  13000);
 
-insert into carolina_graciolli_siqueira.coche
-	(id_coche, id_modelo, id_poliza, matricula, fecha_compra, color, kilometrage)
-	values('014', '006', '214', 'AWX7101', '2019-05-22', 'blanco', 12000);
+insert into carolina_graciolli_siqueira.car
+	(id_car, id_model, id_color, id_insurance, date_of_purchase, license_plate, km_total)
+	values('010', '004', '001' '210', '2019-01-22', 'AAA7101', 000);
 
-insert into carolina_graciolli_siqueira.coche
-	(id_coche, id_modelo, id_poliza, matricula, fecha_compra, color, kilometrage)
-	values('015', '006', '215', 'QWX7101', '2020-05-22', 'blanco', 7600);
+insert into carolina_graciolli_siqueira.car
+	(id_car, id_model, id_color, id_insurance, date_of_purchase, license_plate, km_total)
+	values('011', '005', '004' '211', '2019-04-22', 'ACA7101',  12000);
+
+insert into carolina_graciolli_siqueira.car
+	(id_car, id_model, id_color, id_insurance, date_of_purchase, license_plate, km_total)
+	values('012', '005', '001' '212', '2019-03-22', 'FCA7101', 10000);
+
+insert into carolina_graciolli_siqueira.car
+	(id_car, id_model, id_color, id_insurance, date_of_purchase, license_plate, km_total)
+	values('013', '005', '001' '213', '2019-05-22', 'ADT7101', 2000);
+
+insert into carolina_graciolli_siqueira.car
+	(id_car, id_model, id_color, id_insurance, date_of_purchase, license_plate, km_total)
+	values('014', '006', '003' '214', '2019-05-22', 'AWX7101',  12000);
+
+insert into carolina_graciolli_siqueira.car
+	(id_car, id_model, id_color, id_insurance, date_of_purchase, license_plate, km_total)
+	values('015', '006', '001' '215', '2020-05-22', 'QWX7101',  7600);
 
 	
---- revision ---
+--- inspection ---
 
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (1000, '001', '2021-01-22', 20, '001');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (1000, '001', '001', '2021-01-22', 20);
 
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (3000, '001', '2021-08-22', 23, '001');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (3000, '001', '001', '2021-08-22', 23);
 	
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (1000, '002', '2021-01-22', 20, '001');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (1000, '002', '001', '2021-01-22', 20);
 
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (4000, '002', '2022-01-22', 27, '001');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (4000, '002', '001', '2022-01-22', 27);
 	
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (1000, '003', '2021-01-22', 20, '001');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (1000, '003', '001', '2021-01-22', 20);
 	
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (1000, '004', '2021-01-22', 20, '001');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (1000, '004', '001', '2021-01-22', 20);
 	
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (1000, '005', '2021-01-22', 25, '002');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (1000, '005', '002', '2021-01-22', 25);
 	
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (1000, '006', '2021-01-22', 20, '001');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (1000, '006', '001', '2021-01-22', 20);
 	
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (1000, '007', '2021-01-22', 20, '001');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (1000, '007', '001', '2021-01-22', 20);
 	
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (1000, '008', '2021-01-22', 20, '001');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (1000, '008', '001', '2021-01-22', 20);
 	
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (1000, '009', '2021-01-22', 20, '001');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (1000, '009', '001', '2021-01-22', 20);
 	
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (4000, '009', '2021-08-22', 30, '001');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (4000, '009', '001', '2021-08-22', 30);
 
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (7000, '009', '2022-02-22', 28, '001');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (7000, '009', '001', '2022-02-22', 28);
 
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (1000, '010', '2021-01-22', 20, '001');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (1000, '010', '001', '2021-01-22', 20);
 	
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (1000, '011', '2021-01-22', 20, '001');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (1000, '011', '001', '2021-01-22', 20);
 	
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (1000, '012', '2021-01-22', 15, '003');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (1000, '012', '003', '2021-01-22', 15);
 	
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (1000, '013', '2021-01-22', 20, '001');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (1000, '013', '001', '2021-01-22', 20);
 	
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (6500, '013', '2021-09-22', 28, '001');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (6500, '013', '001', '2021-09-22', 28);
 
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (1000, '014', '2021-01-22', 20, '001');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (1000, '014', '001', '2021-01-22', 20);
 	
-insert into carolina_graciolli_siqueira.revision
-	(km, id_coche, fecha, importe, id_moneda)
-	values (1000, '015', '2021-01-22', 20, '001');
+insert into carolina_graciolli_siqueira.inspection
+	(km, id_car, id_currency, date, price)
+	values (1000, '015', '001', '2021-01-22', 20);
