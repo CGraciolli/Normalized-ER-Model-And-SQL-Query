@@ -147,62 +147,62 @@ insert into carolina_graciolli_siqueira.currencies
 --- companies ---
 insert into carolina_graciolli_siqueira.companies
 	(id_company, company)
-	values('001', 'company1');
+	values('001', 'RNMA');
 
 insert into carolina_graciolli_siqueira.companies
 	(id_company, company)
-	values('002', 'company2');
+	values('002', 'FCA');
 
 --- brands ---
 insert into carolina_graciolli_siqueira.brands
 	(id_brand, id_company, brand)
-	values('001', '001', 'brand1');
+	values('001', '001', 'Renault');
 
 insert into carolina_graciolli_siqueira.brands
 	(id_brand, id_company, brand)
-	values('002', '001', 'brand2');
+	values('002', '001', 'Nissan');
 
 insert into carolina_graciolli_siqueira.brands
 	(id_brand, id_company, brand)
-	values('003', '002', 'brand3');
+	values('003', '002', 'Fiat');
 
 --- models ---
 insert into carolina_graciolli_siqueira.models
 	(id_model, id_brand, model)
-	values('001', '001', 'model1');
+	values('001', '001', 'Scenic');
 
 insert into carolina_graciolli_siqueira.models
 	(id_model, id_brand, model)
-	values('002', '002', 'model2');
+	values('002', '002', 'NOTE');
 
 insert into carolina_graciolli_siqueira.models
 	(id_model, id_brand, model)
-	values('003', '002', 'model3');
+	values('003', '002', 'X-TRAIL');
 
 insert into carolina_graciolli_siqueira.models
 	(id_model, id_brand, model)
-	values('004', '003', 'model4');
+	values('004', '003', 'Panda');
 
 insert into carolina_graciolli_siqueira.models
 	(id_model, id_brand, model)
-	values('005', '003', 'model5');
+	values('005', '003', '500L');
 
 insert into carolina_graciolli_siqueira.models
 	(id_model, id_brand, model)
-	values('006', '003', 'model6');
+	values('006', '003', '500X');
 
 --- insurance_companies ---
 insert into carolina_graciolli_siqueira.insurance_companies
 	(id_insurance_company, insurance_company)
-	values('001', 'IC1');
+	values('001', 'Allianz');
 
 insert into carolina_graciolli_siqueira.insurance_companies
 	(id_insurance_company, insurance_company)
-	values('002', 'IC2');
+	values('002', 'Verti');
 
 insert into carolina_graciolli_siqueira.insurance_companies
 	(id_insurance_company, insurance_company)
-	values('003', 'IC3');
+	values('003', 'AXA');
 
 --- colors ---
 insert into carolina_graciolli_siqueira.colors
