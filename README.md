@@ -21,10 +21,10 @@
 
 <br>
 
-<div>
-<img align=top src="https://user-images.githubusercontent.com/112963325/204787138-8eec8e8a-28c9-4cbf-a346-975565636fc0.png" alt="diagrama" width=276px height=247px>
+
+<img align=top src="https://user-images.githubusercontent.com/112963325/204809485-b23b38ff-b8b4-481f-b789-48a420af19fc.png" alt="diagrama" width=276px height=247px>
+<br>
 <img align=top src="https://user-images.githubusercontent.com/112963325/204787848-1ffd50f5-e329-43e3-a424-6ea637694c31.png" 
 alt="query" width=527px height=157px>
-</div>
 
 
