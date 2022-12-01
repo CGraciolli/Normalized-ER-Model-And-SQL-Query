@@ -24,7 +24,6 @@
 
 <img align=top src="https://user-images.githubusercontent.com/112963325/204809485-b23b38ff-b8b4-481f-b789-48a420af19fc.png" alt="diagrama" width=276px height=247px>
 <br>
-<img align=top src="https://user-images.githubusercontent.com/112963325/204787848-1ffd50f5-e329-43e3-a424-6ea637694c31.png" 
+<img align=top src="https://user-images.githubusercontent.com/112963325/205002017-4de15284-0302-4553-a43b-04779ff35b20.png" 
 alt="query" width=527px height=157px>
-
 
