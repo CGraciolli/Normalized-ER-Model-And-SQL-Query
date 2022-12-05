@@ -65,7 +65,7 @@ CREATE TABLE carolina_graciolli_siqueira.inspections(
 				km integer NOT NULL, --PK
 				id_car integer NOT NULL, --PK, FK --> cars
 				id_currency integer NOT NULL default '001', --FK --> currencies
-				inspection_date date NOT NULL,
+				inspection_date timestamp NOT NULL,
 				price integer NOT NULL
 				);
 
@@ -347,80 +347,80 @@ INSERT INTO carolina_graciolli_siqueira.insurances
 
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (1000, '001', '001', '2021-01-22', 20);
+	VALUES (1000, '001', '001', '2021-01-22 13:00:00', 20);
 
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (3000, '001', '001', '2021-08-22', 23);
+	VALUES (3000, '001', '001', '2021-08-22 13:00:00', 23);
 	
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (1000, '002', '001', '2021-01-22', 20);
+	VALUES (1000, '002', '001', '2021-01-22 13:00:00', 20);
 
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (4000, '002', '001', '2022-01-22', 27);
+	VALUES (4000, '002', '001', '2022-01-22 13:00:00', 27);
 	
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (1000, '003', '001', '2021-01-22', 20);
+	VALUES (1000, '003', '001', '2021-01-22 13:00:00', 20);
 	
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (1000, '004', '001', '2021-01-22', 20);
+	VALUES (1000, '004', '001', '2021-01-22 13:00:00', 20);
 	
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (1000, '005', '002', '2021-01-22', 25);
+	VALUES (1000, '005', '002', '2021-01-22 13:00:00', 25);
 	
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (1000, '006', '001', '2021-01-22', 20);
+	VALUES (1000, '006', '001', '2021-01-22 13:00:00', 20);
 	
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (1000, '007', '001', '2021-01-22', 20);
+	VALUES (1000, '007', '001', '2021-01-22 13:00:00', 20);
 	
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (1000, '008', '001', '2021-01-22', 20);
+	VALUES (1000, '008', '001', '2021-01-22 13:00:00', 20);
 	
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (1000, '009', '001', '2021-01-22', 20);
+	VALUES (1000, '009', '001', '2021-01-22 13:00:00', 20);
 	
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (4000, '009', '001', '2021-08-22', 30);
+	VALUES (4000, '009', '001', '2021-08-22 13:00:00', 30);
 
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (7000, '009', '001', '2022-02-22', 28);
+	VALUES (7000, '009', '001', '2022-02-22 13:00:00', 28);
 
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (1000, '010', '001', '2021-01-22', 20);
+	VALUES (1000, '010', '001', '2021-01-22 13:00:00', 20);
 	
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (1000, '011', '001', '2021-01-22', 20);
+	VALUES (1000, '011', '001', '2021-01-22 13:00:00', 20);
 	
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (1000, '012', '003', '2021-01-22', 15);
+	VALUES (1000, '012', '003', '2021-01-22 13:00:00', 15);
 	
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (1000, '013', '001', '2021-01-22', 20);
+	VALUES (1000, '013', '001', '2021-01-22 13:00:00', 20);
 	
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (6500, '013', '001', '2021-09-22', 28);
+	VALUES (6500, '013', '001', '2021-09-22 13:00:00', 28);
 
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (1000, '014', '001', '2021-01-22', 20);
+	VALUES (1000, '014', '001', '2021-01-22 13:00:00', 20);
 	
 INSERT INTO carolina_graciolli_siqueira.inspections
 	(km, id_car, id_currency, inspection_date, price)
-	VALUES (1000, '015', '001', '2021-01-22', 20);
+	VALUES (1000, '015', '001', '2021-01-22 13:00:00', 20);
