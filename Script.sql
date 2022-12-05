@@ -62,15 +62,15 @@ ALTER TABLE carolina_graciolli_siqueira.currencies
 
 --- table INSPECTIONS ---
 CREATE TABLE carolina_graciolli_siqueira.inspections(
-				km integer NOT NULL, --PK
+				km integer NOT NULL, 
 				id_car integer NOT NULL, --PK, FK --> cars
 				id_currency integer NOT NULL default '001', --FK --> currencies
-				inspection_date timestamp NOT NULL,
+				inspection_date timestamp NOT NULL, --PK
 				price integer NOT NULL
 				);
 
 ALTER TABLE carolina_graciolli_siqueira.inspections
-	ADD CONSTRAINT pk_inspection PRIMARY KEY (km, id_car);
+	ADD CONSTRAINT pk_inspection PRIMARY KEY (inspectio_date, id_car);
 
 --- table COLORS ---
 CREATE TABLE carolina_graciolli_siqueira.colors(
