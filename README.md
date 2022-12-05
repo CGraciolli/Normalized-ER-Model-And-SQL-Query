@@ -22,7 +22,7 @@
 <br>
 
 
-<img align=top src="https://user-images.githubusercontent.com/112963325/204809485-b23b38ff-b8b4-481f-b789-48a420af19fc.png" alt="diagrama" width=276px height=247px>
+<img align=top src="https://user-images.githubusercontent.com/112963325/205599703-42d2a936-72af-4c1a-8956-9a6c10ed4cb2.png" alt="diagrama" width=276px height=247px>
 <br>
 <img align=top src="https://user-images.githubusercontent.com/112963325/205002017-4de15284-0302-4553-a43b-04779ff35b20.png" 
 alt="query" width=527px height=157px>
