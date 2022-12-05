@@ -70,7 +70,7 @@ CREATE TABLE carolina_graciolli_siqueira.inspections(
 				);
 
 ALTER TABLE carolina_graciolli_siqueira.inspections
-	ADD CONSTRAINT pk_inspection PRIMARY KEY (inspectio_date, id_car);
+	ADD CONSTRAINT pk_inspection PRIMARY KEY (inspection_date, id_car);
 
 --- table COLORS ---
 CREATE TABLE carolina_graciolli_siqueira.colors(
